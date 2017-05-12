@@ -9,7 +9,7 @@ This is nearly identical to the  `MMM-WunderGround` module with a couple of twea
 Three additonal configurations are added:
  - currentweatherdetails: 1 or 0
  - forecasttablecolumnheadericons: 1 or 0
- - forecasttableheadertext: Whaever title you would like above the forecast table.
+ - forecasttableheadertext: Whatever title you would like above the forecast table.
 
 The Weather Icons used in this module are created and maintained by Erik Flowers. v1.0 artwork by Lukas Bischoff. v1.1 - 2.0 artwork by Erik Flowers www.weathericons.io
 
