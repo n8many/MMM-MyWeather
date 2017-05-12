@@ -1,7 +1,14 @@
 # Module: Weather Underground Forecast
-This is a module for MagicMirror, modified version of the default `weatherforecast` module.
 
-This is similar to the default `weatherforecast` module, however it has additional functionality (such as displaying the probability of precipitation for each day). It also retrieves its data from Weather Underground instead of OpenWeatherMap.
+This is a module for MagicMirror, forked from RedNax67's MMM-WunderGround
+https://github.com/RedNax67/MMM-WunderGround.git
+(MMM-WunderGround is a modified version of the default `weatherforecast` module.)
+
+This is nearly identical to the  `MMM-WunderGround` module with a couple of tweaks and style changes.
+
+Two additonal configurations are added:
+ - currentweatherdetails: 1 or 0
+ - forecasttablecolumnheadericons: 1 or 0
 
 The Weather Icons used in this module are created and maintained by Erik Flowers. v1.0 artwork by Lukas Bischoff. v1.1 - 2.0 artwork by Erik Flowers www.weathericons.io
 
@@ -9,7 +16,7 @@ The Weather Icons used in this module are created and maintained by Erik Flowers
 ## Installing the module
 Clone this repository in your `~/MagicMirror/modules/` folder `( $ cd ~MagicMirror/modules/ )`:
 ````javascript
-git clone https://github.com/RedNax67/MMM-WunderGround.git
+git clone https://github.com/jclarke0000/MMM-MyWeather.git
 ````
 
 ## Using the module
@@ -255,5 +262,19 @@ The following properties can be configured:
 				<br><b>Default value:</b>  <code>0</code>
 			</td>
 		</tr>
+    <tr>
+      <td><code>currentweatherdetails</code></td>
+      <td>Toggle detailed current conditions (wind speed, humidity, sunrise, moon phase)<br>
+        <br><b>Possible values:</b> <code>0 or 1</code>
+        <br><b>Default value:</b>  <code>1</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>forecasttablecolumnheadericons</code></td>
+      <td>Toggle icons above forecast table (thermometer, umbrella)<br>
+        <br><b>Possible values:</b> <code>0 or 1</code>
+        <br><b>Default value:</b>  <code>1</code>
+      </td>
+    </tr>
 	</tbody>
 </table>

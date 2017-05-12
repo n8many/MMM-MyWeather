@@ -1,4 +1,4 @@
-.MMM-WunderGround .weathericon {
+.MMM-MyWeather .weathericon {
   font-size: 45%;
   line-height: 5px;
   display: inline-block;
@@ -6,32 +6,32 @@
   -webkit-transform: translate(0, -3px); /* Safari */
   transform: translate(0, -3px);
 } 
-.MMM-WunderGround .day {
+.MMM-MyWeather .day {
   padding-left: 0;
 #  padding-right: 10px;
 }
 
-.MMM-WunderGround .vcen {
+.MMM-MyWeather .vcen {
    vertical-align: top;
 }
 
-.MMM-WunderGround .weather-icon {
+.MMM-MyWeather .weather-icon {
   padding-left: 0px;
   text-align: center;
   width:50px; 
 }
 
-.MMM-WunderGround .max-temp {
+.MMM-MyWeather .max-temp {
   padding-left: 0px;
   padding-right: 0;
 }
 
-.MMM-WunderGround .min-temp {
+.MMM-MyWeather .min-temp {
 #  padding-left: 10px;
 #  padding-right: 0;
 }
 
-.MMM-WunderGround .forecastText {
+.MMM-MyWeather .forecastText {
 # padding-left: 10px;
 #  padding-right: 0;
 #  word-wrap: break-word;
@@ -39,49 +39,49 @@
 #  rowspan: 0;
 }
 
-.MMM-WunderGround .tableheader {
+.MMM-MyWeather .tableheader {
   font-size: 75%;
   text-align: center;
 } 
 
-.MMM-WunderGround .hour {
+.MMM-MyWeather .hour {
   font-size: 75%;
   text-align: center;
  } 
 
-.MMM-WunderGround .pop {
+.MMM-MyWeather .pop {
   font-size: 86%;
 } 
-.MMM-WunderGround .mm {
+.MMM-MyWeather .mm {
   font-size: 75%;
 } 
 
-.MMM-WunderGround .green {
+.MMM-MyWeather .green {
   color: #83FFB3;
 }
 
-.MMM-WunderGround .yellow {
+.MMM-MyWeather .yellow {
   color: yellow;
 }
 
-.MMM-WunderGround .red {
+.MMM-MyWeather .red {
   color: #FF4C4C;
 }
 
-.MMM-WunderGround .center {
+.MMM-MyWeather .center {
 	text-align: center;
 	padding-right: 10px; 
 }
 	
-.MMM-WunderGround .left {
+.MMM-MyWeather .left {
 	text-align: left;
 }
 
-.MMM-WunderGround .lpad {
+.MMM-MyWeather .lpad {
 	padding-left: 10px; 
 }
 
-.MMM-WunderGround .currentWeatherIcon {
+.MMM-MyWeather .currentWeatherIcon {
   font-size: 75%;
   line-height: 45px;
   display: inline-block;
@@ -92,7 +92,7 @@
   height: 40%;
 } 
 
-.MMM-WunderGround .forecastWeatherIcon {
+.MMM-MyWeather .forecastWeatherIcon {
   font-size: 75%;
   line-height: 65px;
   display: inline-block;
@@ -102,20 +102,51 @@
   width: 50%;
 } 
 
-.MMM-WunderGround .moonPhaseIcon {
+.MMM-MyWeather .moonPhaseIcon {
   height: 34px;
   vertical-align: middle;
 } 
 
-.MMM-WunderGround .hrDivider {
+.MMM-MyWeather .hrDivider {
         font-size: 10px;
 }
 
-.MMM-WunderGround .sub {
+.MMM-MyWeather .sub {
     vertical-align: sub;
     font-size: smaller;
 }
 
-.MMM-WunderGround .smaller {
+.MMM-MyWeather .smaller {
     font-size: 60%;
 }
+
+.MMM-MyWeather .currentWeatherIconWrapper .currentWeatherIcon {
+  max-width: 140px;
+  max-height: 140px;
+  width: auto;
+  height: auto;
+  margin:0;
+  vertical-align:top;
+  -webkit-transform: none;
+  transform: none;
+}
+
+
+.MMM-MyWeather td.hourv,
+.MMM-MyWeather td.day {
+  text-align: left;
+  color: #FFF;
+}
+
+.MMM-MyWeather .min-temp {
+  color: #6fc4f5;
+
+}
+.MMM-MyWeather .max-temp {
+  color: #f8dd70;
+}
+
+.MMM-MyWeather .hourly-temp {
+  color: #FFF;
+}
+
