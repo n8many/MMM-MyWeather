@@ -26,7 +26,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 ````javascript
 modules: [
 {
-    module: 'MMM-WunderGround',
+    module: 'MMM-MyWeather',
     position: 'top_right',
     config: {
         apikey: 'xxxxxxxxxxxxx', // private; don't share!
