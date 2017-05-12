@@ -289,7 +289,7 @@ Module.register("MMM-MyWeather", {
                 weatherIcon.className = "wi " + this.weatherType;
             }
             weatherIcon.classList.add("currentWeatherIconWrapper");
-            
+
             var temperature = document.createElement("span");
             temperature.className = "bright";
             temperature.innerHTML = " " + this.temperature + "&deg;";
@@ -1001,7 +1001,7 @@ Module.register("MMM-MyWeather", {
             // console.log("Wrap: " + fc_wrap + " Scale: " + fc_scale + " Lines: " + fc_lines + " Length: " + fc_text.length);
 
             this.temperature = this.roundValue(this.temperature);
-            this.weatherTypeTxt = "<img src='./modules/MMM-WunderGround/img/" + this.config.iconset + "/" +
+            this.weatherTypeTxt = "<img src='./modules/MMM-MyWeather/img/" + this.config.iconset + "/" +
                 data.current_observation.icon_url.replace('http://icons.wxug.com/i/c/k/', '').replace('.gif', '.png') +
                 "' style='vertical-align:middle' class='currentWeatherIcon'>";
 
@@ -1043,7 +1043,7 @@ Module.register("MMM-MyWeather", {
                 this.windSpd = "wi-wind-beaufort-" + this.ms2Beaufort(forecast.maxwind.kph);
                 this.windSpdMph = forecast.maxwind.mph;
 
-                this.icon_url = "<img style='max-height:100%; max-width:100%; vertical-align:middle' src='./modules/MMM-WunderGround/img/" + this.config.iconset + "/" +
+                this.icon_url = "<img style='max-height:100%; max-width:100%; vertical-align:middle' src='./modules/MMM-MyWeather/img/" + this.config.iconset + "/" +
                     forecast.icon_url.replace('http://icons.wxug.com/i/c/k/', '').replace('.gif', '.png') + "' class='forecastWeatherIcon'>";
 
                 this.forecast.push({
@@ -1094,7 +1094,7 @@ Module.register("MMM-MyWeather", {
                         hourlyforecast.icon] : this.config.iconTableNight[
                         hourlyforecast.icon];
 
-                    this.ForecastIconUrl = "<img style='max-height:100%; max-width:100%; vertical-align:middle' src='./modules/MMM-WunderGround/img/" + this.config.iconset + "/" +
+                    this.ForecastIconUrl = "<img style='max-height:100%; max-width:100%; vertical-align:middle' src='./modules/MMM-MyWeather/img/" + this.config.iconset + "/" +
                         hourlyforecast.icon_url.replace('http://icons.wxug.com/i/c/k/', '').replace('.gif', '.png') + "' class='forecastWeatherIcon'>";
 
 
