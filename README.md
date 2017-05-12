@@ -6,9 +6,10 @@ https://github.com/RedNax67/MMM-WunderGround.git
 
 This is nearly identical to the  `MMM-WunderGround` module with a couple of tweaks and style changes.
 
-Two additonal configurations are added:
+Three additonal configurations are added:
  - currentweatherdetails: 1 or 0
  - forecasttablecolumnheadericons: 1 or 0
+ - forecasttableheadertext: Whaever title you would like above the forecast table.
 
 The Weather Icons used in this module are created and maintained by Erik Flowers. v1.0 artwork by Lukas Bischoff. v1.1 - 2.0 artwork by Erik Flowers www.weathericons.io
 
@@ -274,6 +275,12 @@ The following properties can be configured:
       <td>Toggle icons above forecast table (thermometer, umbrella)<br>
         <br><b>Possible values:</b> <code>0 or 1</code>
         <br><b>Default value:</b>  <code>1</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>forecasttableheadertext</code></td>
+      <td>Text you would like above the Forecast table<br>
+        <br><b>Default value:</b>  <code>Forecast</code>
       </td>
     </tr>
 	</tbody>
