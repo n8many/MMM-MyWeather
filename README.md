@@ -25,26 +25,26 @@ git clone https://github.com/jclarke0000/MMM-MyWeather.git
 To use this module, add it to the modules array in the `config/config.js` file:
 ````javascript
 modules: [
-{
+  {
     module: 'MMM-MyWeather',
     position: 'top_right',
     config: {
-        apikey: 'xxxxxxxxxxxxx', // private; don't share!
-        pws: 'pws:IGELDERL219', //culemborg
-        hourly: '1',
-        fctext: '1',
-        fcdaycount: "5",
-        fcdaystart: "0",
-        hourlyinterval: "3",
-        hourlycount: "2",
-        alerttime: 10000,
-        alerttruncatestring: "english:",
-	roundTmpDecs: 1,
-	UseCardinals: 0,
-	layout: "horizontal",
-	sysstat: 0
+      apikey: 'xxxxxxxxxxxxx', // private; don't share!
+      pws: 'pws:IGELDERL219', //culemborg
+      hourly: '1',
+      fctext: '1',
+      fcdaycount: "5",
+      fcdaystart: "0",
+      hourlyinterval: "3",
+      hourlycount: "2",
+      alerttime: 10000,
+      alerttruncatestring: "english:",
+    	roundTmpDecs: 1,
+    	UseCardinals: 0,
+    	layout: "horizontal",
+    	sysstat: 0
     }
-};
+  },
 ]
 ````
 
@@ -264,8 +264,22 @@ The following properties can be configured:
 			</td>
 		</tr>
     <tr>
+      <td><code>currentweather</code></td>
+      <td>Toggle current conditions (large temperature and icon display)<br>
+        <br><b>Possible values:</b> <code>0 or 1</code>
+        <br><b>Default value:</b>  <code>1</code>
+      </td>
+    </tr>
+    <tr>
       <td><code>currentweatherdetails</code></td>
       <td>Toggle detailed current conditions (wind speed, humidity, sunrise, moon phase)<br>
+        <br><b>Possible values:</b> <code>0 or 1</code>
+        <br><b>Default value:</b>  <code>1</code>
+      </td>
+    </tr>
+    <tr>
+      <td><code>forecasttable</code></td>
+      <td>Toggle forecast table<br>
         <br><b>Possible values:</b> <code>0 or 1</code>
         <br><b>Default value:</b>  <code>1</code>
       </td>
