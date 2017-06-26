@@ -39,10 +39,10 @@ modules: [
       hourlycount: "2",
       alerttime: 10000,
       alerttruncatestring: "english:",
-    	roundTmpDecs: 1,
-    	UseCardinals: 0,
-    	layout: "horizontal",
-    	sysstat: 0
+      roundTmpDecs: 1,
+      UseCardinals: 0,
+      layout: "horizontal",
+      sysstat: 0
     }
   },
 ]
