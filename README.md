@@ -6,8 +6,10 @@ https://github.com/RedNax67/MMM-WunderGround.git
 
 This is nearly identical to the  `MMM-WunderGround` module with a couple of tweaks and style changes.
 
-Three additonal configurations are added:
+Five additonal configurations are added:
+ - currentweather: 1 or 0
  - currentweatherdetails: 1 or 0
+ - forecasttable: 1 or 0
  - forecasttablecolumnheadericons: 1 or 0
  - forecasttableheadertext: Whatever title you would like above the forecast table.
 
