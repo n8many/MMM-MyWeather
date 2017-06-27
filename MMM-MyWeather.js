@@ -279,25 +279,25 @@ Module.register("MMM-MyWeather", {
         small.appendChild(table_sitrep);
       }
 
-        var large = document.createElement("div");
-        large.className = "large light";
+      var large = document.createElement("div");
+      large.className = "large light";
 
-        var weatherIcon = document.createElement("span");
-        if (this.config.coloricon) {
-            weatherIcon.innerHTML = this.weatherTypeTxt;
-        } else {
-            weatherIcon.className = "wi " + this.weatherType;
-        }
-        weatherIcon.classList.add("currentWeatherIconWrapper");
+      var weatherIcon = document.createElement("span");
+      if (this.config.coloricon) {
+          weatherIcon.innerHTML = this.weatherTypeTxt;
+      } else {
+          weatherIcon.className = "wi " + this.weatherType;
+      }
+      weatherIcon.classList.add("currentWeatherIconWrapper");
 
-        var temperature = document.createElement("span");
-        temperature.className = "bright";
-        temperature.innerHTML = " " + this.temperature + "&deg;";
-        large.appendChild(weatherIcon);
-        large.appendChild(temperature);
+      var temperature = document.createElement("span");
+      temperature.className = "bright";
+      temperature.innerHTML = " " + this.temperature + "&deg;";
+      large.appendChild(weatherIcon);
+      large.appendChild(temperature);
 
-        wrapper.appendChild(small);
-        wrapper.appendChild(large);
+      wrapper.appendChild(small);
+      wrapper.appendChild(large);
 
     }
 
@@ -318,6 +318,7 @@ Module.register("MMM-MyWeather", {
       if (this.config.layout == "vertical") {
 
         // vertical layout
+        table.classList.add("vertical");
 
         var row = document.createElement("tr");
         table.appendChild(row);
@@ -384,16 +385,19 @@ Module.register("MMM-MyWeather", {
 
             hourCell = document.createElement("td");
             hourCell.className = "hourv";
-            var amPm = "am";
-            var timeSplit = forecast.hour.split(":");
-            var hourVal = Number(timeSplit[0]);
-            if (hourVal > 12) {
-              hourVal = hourVal - 12;
-              amPm = "pm";
-            } else if (hourVal == 0) {
-              hourVal = 12;                      
-            }
-            hourCell.innerHTML = hourVal + " " + amPm;
+            // var amPm = "am";
+            // var timeSplit = forecast.hour.split(":");
+            // var hourVal = Number(timeSplit[0]);
+            // if (hourVal == 12) {
+            //   amPm = "pm";
+            // } else if (hourVal > 12) {
+            //   hourVal = hourVal - 12;
+            //   amPm = "pm";
+            // } else if (hourVal == 0) {
+            //   hourVal = 12;                      
+            // }
+            // hourCell.innerHTML = hourVal + " " + amPm;
+            hourCell.innerHTML = moment(forecast.hour, "HH:mm").format(this.config.timeFormat);
             row.appendChild(hourCell);
 
             iconCell = document.createElement("td");
@@ -514,10 +518,11 @@ Module.register("MMM-MyWeather", {
 
         // horizontal layout
 
+
         var fctable = document.createElement("div");
         var divider = document.createElement("hr");
         divider.className = "hrDivider";
-        fctable.appendChild(divider);
+        // fctable.appendChild(divider);
 
         if (this.config.fctext == 1) {
             var row = document.createElement("tr");
@@ -536,6 +541,7 @@ Module.register("MMM-MyWeather", {
         table = document.createElement("table");
         table.className = "small";
         table.setAttribute("width", "25%");
+        table.classList.add("horizontal");
 
         if (this.config.sysstat == 1) {
 
@@ -638,7 +644,7 @@ Module.register("MMM-MyWeather", {
 
             hourCell = document.createElement("td");
             hourCell.className = "hour";
-            hourCell.innerHTML = forecast.hour;
+            hourCell.innerHTML = moment(forecast.hour, "HH:mm").format(this.config.timeFormat);
             row_time.appendChild(hourCell);
 
 
@@ -654,18 +660,18 @@ Module.register("MMM-MyWeather", {
             row_icon.appendChild(iconCell);
 
             maxTempCell = document.createElement("td");
-            maxTempCell.innerHTML = forecast.maxTemp + "&deg;/" + forecast.minTemp + "&deg;";
-            maxTempCell.className = "hour";
+            maxTempCell.innerHTML = forecast.maxTemp + "&deg;";
+            maxTempCell.className = "temp hourly-temp";
             row_temp.appendChild(maxTempCell);
 
             mmCell = document.createElement("td");
 
             if (this.config.units == "metric") {
-              mmCell.innerHTML = forecast.pop + "%/" + forecast.mm;
-              mmCell.className = "hour";
+              mmCell.innerHTML = forecast.pop + "% / " + forecast.mm;
+              mmCell.className = "prec";
             } else {
-              mmCell.innerHTML = forecast.pop + "%/" + forecast.mm;
-              mmCell.className = "hour";
+              mmCell.innerHTML = forecast.pop + "% / " + forecast.mm;
+              mmCell.className = "prec";
             }
 
             row_pop.appendChild(mmCell);
@@ -727,13 +733,15 @@ Module.register("MMM-MyWeather", {
           table.appendChild(row_pop);
           table.appendChild(row_wind);
           fctable.appendChild(table);
-          fctable.appendChild(divider.cloneNode(true));
+          // fctable.appendChild(divider.cloneNode(true));
 
         }
 
         table = document.createElement("table");
         table.className = "small";
         table.setAttribute("width", "25%");
+        table.classList.add("horizontal");
+
 
         row_time = document.createElement("tr");
         row_icon = document.createElement("tr");
@@ -746,7 +754,7 @@ Module.register("MMM-MyWeather", {
     				forecast = this.forecast[f];
 
     				dayCell = document.createElement("td");
-    				dayCell.className = "hour";
+    				dayCell.className = "day";
     				dayCell.innerHTML = forecast.day;
     				row_time.appendChild(dayCell);
 
@@ -764,17 +772,17 @@ Module.register("MMM-MyWeather", {
     				row_icon.appendChild(iconCell);
 
     				maxTempCell = document.createElement("td");
-    				maxTempCell.innerHTML = forecast.maxTemp + "&deg;/" + forecast.minTemp + "&deg;";
-    				maxTempCell.className = "hour";
+    				maxTempCell.innerHTML = "<span class='max-temp'>" + forecast.maxTemp + "&deg;</span> / " + "<span class='min-temp'>" + forecast.minTemp + "&deg;</span>";
+    				maxTempCell.className = "temp";
     				row_temp.appendChild(maxTempCell);
 
     				mmCell = document.createElement("td");
     				if (this.config.units == "metric") {
-    					mmCell.innerHTML = forecast.pop + "%/" + forecast.mm;
-    					mmCell.className = "hour";
+    					mmCell.innerHTML = forecast.pop + "% / " + forecast.mm;
+    					mmCell.className = "prec";
     				} else {
-    					mmCell.innerHTML = forecast.pop + "%/" + forecast.mm;
-    					mmCell.className = "hour";
+    					mmCell.innerHTML = forecast.pop + "% / " + forecast.mm;
+    					mmCell.className = "prec";
     				}
 
     				row_pop.appendChild(mmCell);

@@ -44,8 +44,7 @@
   text-align: center;
 } 
 
-.MMM-MyWeather .hour {
-  font-size: 75%;
+.MMM-MyWeather .horizontal td, {
   text-align: center;
  } 
 
@@ -96,10 +95,9 @@
   font-size: 75%;
   line-height: 65px;
   display: inline-block;
-  -ms-transform: translate(0, -3px); /* IE 9 */
-  -webkit-transform: translate(0, -3px); /* Safari */
-  transform: translate(0, -3px);
   width: 50%;
+  display: block;
+  margin: auto;
 } 
 
 .MMM-MyWeather .moonPhaseIcon {
@@ -132,11 +130,28 @@
 }
 
 
-.MMM-MyWeather td.hourv,
-.MMM-MyWeather td.day {
+.MMM-MyWeather .vertical td.hourv,
+.MMM-MyWeather .vertical td.day {
   text-align: left;
   color: #FFF;
 }
+
+.MMM-MyWeather table.horizontal,
+.MMM-MyWeather table.horizontal {
+  text-align: center;
+  line-height: 1.5;
+  font-size: 17px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+.MMM-MyWeather table.horizontal .hour,
+.MMM-MyWeather table.horizontal .day {
+  line-height: 25px;
+  font-size: 20px;
+  color: #FFF;
+}
+
 
 .MMM-MyWeather .min-temp {
   color: #6fc4f5;
@@ -149,4 +164,6 @@
 .MMM-MyWeather .hourly-temp {
   color: #FFF;
 }
+
+
 
