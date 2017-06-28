@@ -299,5 +299,11 @@ The following properties can be configured:
         <br><b>Default value:</b>  <code>Forecast</code>
       </td>
     </tr>
+    <tr>
+      <td><code>timeFormat</code></td>
+      <td>How to format the time for hourly forecast. Use Moment.js supported formats (https://momentjs.com/docs/#/displaying/)<br>
+        <br><b>Default value:</b>  <code>"h a"</code>
+      </td>
+    </tr>
 	</tbody>
 </table>
