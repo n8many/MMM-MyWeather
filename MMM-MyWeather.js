@@ -28,7 +28,7 @@ Module.register("MMM-MyWeather", {
     windunits: "bft", // choose from mph, bft
     updateInterval: 10 * 60 * 1000, // every 10 minutes
     animationSpeed: 1000,
-    timeFormat: config.timeFormat,
+    timeFormat: "h a",
     lang: config.language,
     showWindDirection: true,
     fade: true,
