@@ -905,19 +905,24 @@ Module.register("MMM-MyWeather", {
         this.sendNotification("CURRENTWEATHER_DATA", complimentIconJson);
       }
         
-      var timeString = moment(sunriseSunsetDateObject).format("HH:mm");
-
-      if (this.config.timeFormat !== 24) {
-        if (this.config.showPeriod) {
-          if (this.config.showPeriodUpper) {
-            timeString = moment(sunriseSunsetDateObject).format("h:mm A");
-          } else {
-            timeString = moment(sunriseSunsetDateObject).format("h:mm a");
-          }
-        } else {
-          timeString = moment(sunriseSunsetDateObject).format("h:mm");
-        }
+      var timeString;
+      if (this.config.timeFormat.indexOf("H") != -1) {
+        timeString = moment(sunriseSunsetDateObject).format("HH:mm");
+      } else {
+        timeString = moment(sunriseSunsetDateObject).format("h:mm a");
       }
+
+      // if (this.config.timeFormat !== 24) {
+      //   if (this.config.showPeriod) {
+      //     if (this.config.showPeriodUpper) {
+      //       timeString = moment(sunriseSunsetDateObject).format("h:mm A");
+      //     } else {
+      //       timeString = moment(sunriseSunsetDateObject).format("h:mm a");
+      //     }
+      //   } else {
+      //     timeString = moment(sunriseSunsetDateObject).format("h:mm");
+      //   }
+      // }
 
       this.sunriseSunsetTime = timeString;
       this.sunriseSunsetIcon = (sunrise < now && sunset > now) ? "wi-sunset" : "wi-sunrise";
