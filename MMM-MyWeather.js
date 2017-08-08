@@ -1091,7 +1091,7 @@ Module.register("MMM-MyWeather", {
             } else {
               this.tmm = forecast.qpf_allday.in + "in";
             }
-            this.thour = hourlyforecast.FCTTIME.civil;
+            this.thour = hourlyforecast.FCTTIME.hour + ":00";
           }
 
           this.tthour = Number(hourlyforecast.FCTTIME.hour);
