@@ -1,3 +1,19 @@
+.MMM-MyWeather {
+  max-width: 500px;
+}
+
+.MMM-MyWeather table {
+  border-collapse:collapse;
+}
+
+.MMM-MyWeather table td {
+  line-height: 1.75;
+}
+
+.MMM-MyWeather table tr {
+  border-bottom: solid 1px #222;
+}
+
 .MMM-MyWeather .weathericon {
   font-size: 45%;
   line-height: 5px;
@@ -8,7 +24,6 @@
 } 
 .MMM-MyWeather .day {
   padding-left: 0;
-#  padding-right: 10px;
 }
 
 .MMM-MyWeather .vcen {
@@ -24,19 +39,6 @@
 .MMM-MyWeather .max-temp {
   padding-left: 0px;
   padding-right: 0;
-}
-
-.MMM-MyWeather .min-temp {
-#  padding-left: 10px;
-#  padding-right: 0;
-}
-
-.MMM-MyWeather .forecastText {
-# padding-left: 10px;
-#  padding-right: 0;
-#  word-wrap: break-word;
-#  text-align: right;
-#  rowspan: 0;
 }
 
 .MMM-MyWeather .tableheader {
