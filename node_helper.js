@@ -149,6 +149,9 @@ module.exports = NodeHelper.create({
     if(notification === "GET_WUNDERGROUND"){
             
         this.config = payload;
+
+        console.log(JSON.stringify(payload));
+
         if ( this.config.debug === 1 ) {
 			console.log('Lets get WunderGround');
 		}

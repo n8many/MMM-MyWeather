@@ -377,8 +377,12 @@ Module.register("MMM-MyWeather", {
         }
 
         if (this.config.hourly == 1) {
-          for (f in this.forecast) {
-            forecast = this.hourlyforecast[f * this.config.hourlyinterval];
+          // for (f in this.forecast) {
+            // forecast = this.hourlyforecast[f * this.config.hourlyinterval];
+
+          var counter = 0;
+          for (var i = Number(this.config.hourlyinterval) - 1; i < this.hourlyforecast.length; i += Number(this.config.hourlyinterval)) {
+            forecast = this.hourlyforecast[i];
 
             row = document.createElement("tr");
             table.appendChild(row);
@@ -431,7 +435,8 @@ Module.register("MMM-MyWeather", {
             mmCell.className = "align-right mm";
             row.appendChild(mmCell);
 
-            if (f > this.config.hourlycount) {
+            counter = counter + 1;
+            if (counter == Number(this.config.hourlycount)) {
               break;
             }
     	
@@ -639,8 +644,13 @@ Module.register("MMM-MyWeather", {
           row_pop = document.createElement("tr");
           row_wind = document.createElement("tr");
 
-          for (f in this.forecast) {
-            forecast = this.hourlyforecast[f * this.config.hourlyinterval];
+
+          // for (f in this.forecast) {
+          //   forecast = this.hourlyforecast[f * Number(this.config.hourlyinterval)];
+
+          var counter = 0;
+          for (var i = Number(this.config.hourlyinterval) - 1; i < this.hourlyforecast.length; i += Number(this.config.hourlyinterval)) {
+            forecast = this.hourlyforecast[i];
 
             hourCell = document.createElement("td");
             hourCell.className = "hour";
@@ -721,7 +731,8 @@ Module.register("MMM-MyWeather", {
               row_wind = document.createElement("tr");
             }
 
-            if (f > this.config.hourlycount) {
+            counter = counter + 1;
+            if (counter == Number(this.config.hourlycount)) {
               break;
             }
           }
@@ -1019,7 +1030,7 @@ Module.register("MMM-MyWeather", {
 
 
       this.forecast = [];
-      for (i = this.config.fcdaystart, count = data.forecast.simpleforecast.forecastday.length; i < this.config.fcdaycount; i++) {
+      for (i = this.config.fcdaystart, count = data.forecast.simpleforecast.forecastday.length; i < Number(this.config.fcdaycount) + 1; i++) {
 
         forecast = data.forecast.simpleforecast.forecastday[i];
 
@@ -1072,6 +1083,8 @@ Module.register("MMM-MyWeather", {
         this.hourlyforecast = [];
         for (i = 0, count = data.hourly_forecast.length; i < count; i++) {
 
+        // count = 0;
+        // for (i = this.config.hourlyinterval, i < data.hourly_forecast.length; i = i + this.config.hourlyinterval) {
           var hourlyforecast = data.hourly_forecast[i];
 
           if (this.config.units == "metric") {

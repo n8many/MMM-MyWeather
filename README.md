@@ -140,8 +140,8 @@ The following properties can be configured:
 			<td><code>hourlycount</code></td>
 			<td>How many hourly forecasts. Specified by config.js<br>
 				<br><b>Possible values:</b> <code>0</code> - <code>24</code>
-				<br><b>Default value:</b> <code>3</code> (Will display 4 hourly forecasts)
-				<br>This value is optional. By default the 4 hourly forecasts will be displayed.
+				<br><b>Default value:</b> <code>2</code>
+				<br>This value is optional. By default 2 hourly forecasts will be displayed.
 			</td>
 		</tr>
 		<tr>
