@@ -150,7 +150,7 @@ module.exports = NodeHelper.create({
             
         this.config = payload;
 
-        console.log(JSON.stringify(payload));
+        // console.log(JSON.stringify(payload));
 
         if ( this.config.debug === 1 ) {
 			console.log('Lets get WunderGround');
