@@ -25,7 +25,7 @@ Module.register("MMM-MyWeather", {
     forecasttablecolumnheadericons: 1,
     coloricon: false,
     units: config.units,
-    windunits: "bft", // choose from mph, bft
+    windunits: "bft", // choose from mph, kph, bft
     updateInterval: 10 * 60 * 1000, // every 10 minutes
     animationSpeed: 1000,
     timeFormat: "h a",
@@ -238,6 +238,8 @@ Module.register("MMM-MyWeather", {
         var windIcon = document.createElement("td");
         if (this.config.windunits == "mph") {
           windIcon.innerHTML = this.windSpeedMph + "<sub>mph</sub>";
+        } else if (this.config.windunits == "kph") {
+          windIcon.innerHTML = this.windSpeedKph + "<sub>km/h</sub>";
         } else {
           windIcon.className = "wi " + this.windSpeed;
         }
@@ -692,6 +694,8 @@ Module.register("MMM-MyWeather", {
             windDirectionIconCell = document.createElement("i");
             if (this.config.windunits == "mph") {
               windDirectionIconCell.innerHTML = forecast.windSpdMph + "<sub>mph</sub>";
+            } else if (this.config.windunits == "kph") {
+              windDirectionIconCell.innerHTML = forecast.windSpdKph + "<sub>km/h</sub>";
             } else {
               windDirectionIconCell.className = "wi " + forecast.windSpd;
             }
@@ -803,7 +807,9 @@ Module.register("MMM-MyWeather", {
     				windDirectionIconCell = document.createElement("i");
     				if (this.config.windunits == "mph") {
     					windDirectionIconCell.innerHTML = forecast.windSpdMph + "<sub>mph</sub>";
-    				} else {
+    				} else if (this.config.windunits == "kph") {
+              windDirectionIconCell.innerHTML = forecast.windSpdKph + "<sub>km/h</sub>";
+            } else {
     					windDirectionIconCell.className = "wi " + forecast.windSpd;
     				}
     				windDirectionIcon.appendChild(windDirectionIconCell);
@@ -991,6 +997,7 @@ Module.register("MMM-MyWeather", {
       this.Humidity = data.current_observation.relative_humidity;
       this.Humidity = this.Humidity.substring(0, this.Humidity.length - 1);
       this.windSpeed = "wi-wind-beaufort-" + this.ms2Beaufort(data.current_observation.wind_kph);
+      this.windSpeedKph = data.current_observation.wind_kph;
       this.windSpeedMph = data.current_observation.wind_mph;
       this.moonPhaseIcon = "<img class='moonPhaseIcon' src='https://www.wunderground.com/graphics/moonpictsnew/moon" + data.moon_phase.ageOfMoon + ".gif'>";
 
@@ -1058,6 +1065,7 @@ Module.register("MMM-MyWeather", {
         this.windDir = this.deg2Cardinal(forecast.maxwind.degrees);
         this.windDirImp = forecast.maxwind.dir;
         this.windSpd = "wi-wind-beaufort-" + this.ms2Beaufort(forecast.maxwind.kph);
+        this.windSpdKph = forecast.maxwind.kph;
         this.windSpdMph = forecast.maxwind.mph;
 
         this.icon_url = "<img style='max-height:100%; max-width:100%; vertical-align:middle' src='./modules/MMM-MyWeather/img/" + this.config.iconset + "/" +
@@ -1073,6 +1081,7 @@ Module.register("MMM-MyWeather", {
           windDir: this.windDir,
           windDirImp: this.windDirImp,
           windSpd: this.windSpd,
+          windSpdKph: this.windSpdKph,
           windSpdMph: this.windSpdMph,
           mm: this.tmm
         });
@@ -1117,6 +1126,7 @@ Module.register("MMM-MyWeather", {
           this.windDir = this.deg2Cardinal(hourlyforecast.wdir.degrees);
           this.windDirImp = hourlyforecast.wdir.dir;
           this.windSpd = "wi-wind-beaufort-" + this.ms2Beaufort(hourlyforecast.wspd.metric);
+          this.windSpdKph = hourlyforecast.wspd.metric;
           this.windSpdMph = hourlyforecast.wspd.english;
 
 
@@ -1130,6 +1140,7 @@ Module.register("MMM-MyWeather", {
             windDir: this.windDir,
             windDirImp: this.windDirImp,
             windSpd: this.windSpd,
+            windSpdKph: this.windSpdKph,
             windSpdMph: this.windSpdMph,
             mm: this.tmm
           });
