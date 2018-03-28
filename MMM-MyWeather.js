@@ -238,9 +238,9 @@ Module.register("MMM-MyWeather", {
 
         var windIcon = document.createElement("td");
         if (this.config.windunits == "mph") {
-          windIcon.innerHTML = this.windSpeedMph + "<sub>mph</sub>";
+          windIcon.innerHTML = this.windSpeedMph + " mph";
         } else if (this.config.windunits == "kph") {
-          windIcon.innerHTML = this.windSpeedKph + "<sub>km/h</sub>";
+          windIcon.innerHTML = this.windSpeedKph + " km/h";
         } else {
           windIcon.className = "wi " + this.windSpeed;
         }
@@ -528,22 +528,22 @@ Module.register("MMM-MyWeather", {
 
 
         var fctable = document.createElement("div");
-        var divider = document.createElement("hr");
-        divider.className = "hrDivider";
+        // var divider = document.createElement("hr");
+        // divider.className = "hrDivider";
         // fctable.appendChild(divider);
 
         if (this.config.fctext == 1) {
-            var row = document.createElement("tr");
-            var forecastTextCell = document.createElement("td");
+            // var row = document.createElement("tr");
+            var forecastTextCell = document.createElement("div");
 
             forecastTextCell.className = "forecastText";
-            forecastTextCell.setAttribute("colSpan", "10");
+            // forecastTextCell.setAttribute("colSpan", "10");
             forecastTextCell.innerHTML = this.forecastText;
 
-            row.appendChild(forecastTextCell);
-            table.appendChild(row);
-            fctable.appendChild(table);
-            fctable.appendChild(divider.cloneNode(true));
+            fctable.appendChild(forecastTextCell);
+            // table.appendChild(row);
+            // fctable.appendChild(table);
+            // fctable.appendChild(divider.cloneNode(true));
         }
 
         table = document.createElement("table");
@@ -692,28 +692,34 @@ Module.register("MMM-MyWeather", {
             var windDirectionIcon = document.createElement("td");
             windDirectionIcon.className = "center";
 
-            windDirectionIconCell = document.createElement("i");
+            windDirectionIconCell = document.createElement("span");
             if (this.config.windunits == "mph") {
-              windDirectionIconCell.innerHTML = forecast.windSpdMph + "<sub>mph</sub>";
+              windDirectionIconCell.innerHTML = forecast.windSpdMph + " mph";
             } else if (this.config.windunits == "kph") {
-              windDirectionIconCell.innerHTML = forecast.windSpdKph + "<sub>km/h</sub>";
+              windDirectionIconCell.innerHTML = forecast.windSpdKph + " km/h";
             } else {
               windDirectionIconCell.className = "wi " + forecast.windSpd;
             }
             windDirectionIcon.appendChild(windDirectionIconCell);
 
-            var spacer = document.createElement("i");
-            spacer.innerHTML = "&nbsp;&nbsp;";
-            windDirectionIcon.appendChild(spacer);
+            // var spacer = document.createElement("");
+            // spacer.innerHTML = "&nbsp;&nbsp;";
+            // windDirectionIcon.appendChild(spacer);
 
 
-            windDirectionIconCell = document.createElement("i");
+            windDirectionIconCell = document.createElement("span");
+
 
             if (this.config.UseCardinals === 0) {
-              windDirectionIconCell.className = "wi wi-wind " + forecast.windDir;
+
+              windDirectionIconCell.classList.add("icon-container");
+              var windDirectionIconGlyph = document.createElement("span");
+              windDirectionIconGlyph.className = "wi wi-wind " + forecast.windDir;
+              windDirectionIconCell.appendChild(windDirectionIconGlyph);
+
             } else {
-              windDirectionIconCell.className = "smaller";
-              windDirectionIconCell.innerHTML = this.windDirImp;
+              // windDirectionIconCell.className = "smaller";
+              windDirectionIconCell.innerHTML = "&nbsp;" + forecast.windDirImp;
             }
             windDirectionIcon.appendChild(windDirectionIconCell);
 
@@ -735,8 +741,6 @@ Module.register("MMM-MyWeather", {
               break;
 
             } else if (counter % this.config.itemsPerRow === 0) {
-
-              console.log("================ Breaking ===================");
 
               table.appendChild(row_time);
               table.appendChild(row_icon);
@@ -813,27 +817,30 @@ Module.register("MMM-MyWeather", {
 
     				windDirectionIcon = document.createElement("td");
     				windDirectionIcon.className = "center";
-    				windDirectionIconCell = document.createElement("i");
+    				windDirectionIconCell = document.createElement("span");
     				if (this.config.windunits == "mph") {
-    					windDirectionIconCell.innerHTML = forecast.windSpdMph + "<sub>mph</sub>";
+    					windDirectionIconCell.innerHTML = forecast.windSpdMph + " mph";
     				} else if (this.config.windunits == "kph") {
-              windDirectionIconCell.innerHTML = forecast.windSpdKph + "<sub>km/h</sub>";
+              windDirectionIconCell.innerHTML = forecast.windSpdKph + " km/h";
             } else {
     					windDirectionIconCell.className = "wi " + forecast.windSpd;
     				}
     				windDirectionIcon.appendChild(windDirectionIconCell);
 
-    				spacer = document.createElement("i");
-    				spacer.innerHTML = "&nbsp;&nbsp;";
-    				windDirectionIcon.appendChild(spacer);
+    				// spacer = document.createElement("i");
+    				// spacer.innerHTML = "&nbsp;&nbsp;";
+    				// windDirectionIcon.appendChild(spacer);
 
-    				windDirectionIconCell = document.createElement("i");
+    				windDirectionIconCell = document.createElement("span");
 
-    				if (this.config.UseCardinals === 0) {
-    					windDirectionIconCell.className = "wi wi-wind " + forecast.windDir;
+            if (this.config.UseCardinals === 0) {
+              windDirectionIconCell.classList.add("icon-container");
+              var windDirectionIconGlyph = document.createElement("span");
+    					windDirectionIconGlyph.className = "wi wi-wind " + forecast.windDir;
+              windDirectionIconCell.appendChild(windDirectionIconGlyph);
     				} else {
-    					windDirectionIconCell.className = "smaller";
-    					windDirectionIconCell.innerHTML = this.windDirImp;
+    					// windDirectionIconCell.className = "smaller";
+    					windDirectionIconCell.innerHTML = "&nbsp;" + forecast.windDirImp;
     				}
     				windDirectionIcon.appendChild(windDirectionIconCell);
 
