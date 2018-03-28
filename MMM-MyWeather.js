@@ -52,6 +52,7 @@ Module.register("MMM-MyWeather", {
 		socknot: "GET_WUNDERGROUND",
 		sockrcv: "WUNDERGROUND",
     enableCompliments: 0,
+    itemsPerRow: 4,
 
     retryDelay: 2500,
 
@@ -314,7 +315,7 @@ Module.register("MMM-MyWeather", {
 
       var table = document.createElement("table");
       table.className = "small";
-      table.setAttribute("width", "25%");
+      // table.setAttribute("width", "25%");
 
 
       if (this.config.layout == "vertical") {
@@ -547,7 +548,7 @@ Module.register("MMM-MyWeather", {
 
         table = document.createElement("table");
         table.className = "small";
-        table.setAttribute("width", "25%");
+        // table.setAttribute("width", "25%");
         table.classList.add("horizontal");
 
         if (this.config.sysstat == 1) {
@@ -634,7 +635,7 @@ Module.register("MMM-MyWeather", {
 
           table = document.createElement("table");
           table.className = "small";
-          table.setAttribute("width", "25%");
+          // table.setAttribute("width", "25%");
 
         }
 
@@ -721,8 +722,22 @@ Module.register("MMM-MyWeather", {
 
 
 
-            var nl = Number(f) + 1;
-            if ((nl % 4) === 0) {
+            counter = counter + 1;
+ 
+            if (counter == Number(this.config.hourlycount)) {
+              table.appendChild(row_time);
+              table.appendChild(row_icon);
+              table.appendChild(row_temp);
+              table.appendChild(row_pop);
+              table.appendChild(row_wind);
+              fctable.appendChild(table);
+              // fctable.appendChild(divider.cloneNode(true));
+              break;
+
+            } else if (counter % this.config.itemsPerRow === 0) {
+
+              console.log("================ Breaking ===================");
+
               table.appendChild(row_time);
               table.appendChild(row_icon);
               table.appendChild(row_temp);
@@ -735,26 +750,16 @@ Module.register("MMM-MyWeather", {
               row_wind = document.createElement("tr");
             }
 
-            counter = counter + 1;
-            if (counter == Number(this.config.hourlycount)) {
-              break;
-            }
+
           }
 
 
-          table.appendChild(row_time);
-          table.appendChild(row_icon);
-          table.appendChild(row_temp);
-          table.appendChild(row_pop);
-          table.appendChild(row_wind);
-          fctable.appendChild(table);
-          // fctable.appendChild(divider.cloneNode(true));
 
         }
 
         table = document.createElement("table");
         table.className = "small";
-        table.setAttribute("width", "25%");
+        // table.setAttribute("width", "25%");
         table.classList.add("horizontal");
 
 
@@ -764,7 +769,11 @@ Module.register("MMM-MyWeather", {
         row_pop = document.createElement("tr");
         row_wind = document.createElement("tr");
 
+
     		if (this.config.daily == 1) {
+
+          counter = 0;
+
     			for (f in this.forecast) {
     				forecast = this.forecast[f];
 
@@ -830,27 +839,29 @@ Module.register("MMM-MyWeather", {
 
     				row_wind.appendChild(windDirectionIcon);
 
-    				var nl = Number(f) + 1;
-    				if ((nl % 4) === 0) {
-    					table.appendChild(row_time);
-    					table.appendChild(row_icon);
-    					table.appendChild(row_temp);
-    					table.appendChild(row_pop);
-    					table.appendChild(row_wind);
-    					row_time = document.createElement("tr");
-    					row_icon = document.createElement("tr");
-    					row_temp = document.createElement("tr");
-    					row_pop = document.createElement("tr");
-    					row_wind = document.createElement("tr");
-    				}
+    				counter = counter + 1;
+            if (counter == this.config.fcdaycount) {
+        			table.appendChild(row_time);
+        			table.appendChild(row_icon);
+        			table.appendChild(row_temp);
+        			table.appendChild(row_pop);
+        			table.appendChild(row_wind);
+              break;
+            } else if (counter % this.config.itemsPerRow === 0) {
+              table.appendChild(row_time);
+              table.appendChild(row_icon);
+              table.appendChild(row_temp);
+              table.appendChild(row_pop);
+              table.appendChild(row_wind);
+              row_time = document.createElement("tr");
+              row_icon = document.createElement("tr");
+              row_temp = document.createElement("tr");
+              row_pop = document.createElement("tr");
+              row_wind = document.createElement("tr");
+            }
 
-    			}
+          }
 
-    			table.appendChild(row_time);
-    			table.appendChild(row_icon);
-    			table.appendChild(row_temp);
-    			table.appendChild(row_pop);
-    			table.appendChild(row_wind);
     			fctable.appendChild(table);
     			wrapper.appendChild(fctable);
     		}
