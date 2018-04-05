@@ -1040,8 +1040,9 @@ Module.register("MMM-MyWeather", {
           fc_wrap = Math.round(fc_wrap * (100 / fc_scale));
         }
       }
-      this.forecastText = '<div style="font-size:' + fc_scale + '%">';
-      this.forecastText = this.forecastText + this.wordwrap(fc_text, fc_wrap, "<BR>");
+      // this.forecastText = '<div style="font-size:' + fc_scale + '%">';
+      // this.forecastText = this.forecastText + this.wordwrap(fc_text, fc_wrap, "<BR>");
+      this.forecastText = fc_text;
       // console.log("Wrap: " + fc_wrap + " Scale: " + fc_scale + " Lines: " + fc_lines + " Length: " + fc_text.length);
 
       this.temperature = this.roundValue(this.temperature);
