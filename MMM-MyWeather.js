@@ -1119,18 +1119,18 @@ Module.register("MMM-MyWeather", {
             this.tmaxTemp = hourlyforecast.temp.metric;
             this.tminTemp = hourlyforecast.feelslike.metric;
             if (Number(forecast.snow_allday.cm) > 0) {
-              this.tmm = forecast.snow_allday.cm + "cm";
+              this.tmm = hourlyforecast.snow.metric + "cm";
             } else {
-              this.tmm = forecast.qpf_allday.mm + "mm";
+              this.tmm = hourlyforecast.qpf.metric + "mm";
             }
             this.thour = hourlyforecast.FCTTIME.hour + ":00";
           } else {
             this.tmaxTemp = hourlyforecast.temp.english;
             this.tminTemp = hourlyforecast.feelslike.english;
             if (Number(forecast.snow_allday.in) > 0) {
-              this.tmm = forecast.snow_allday.in + "in";
+              this.tmm = hourlyforecast.snow.english + "in";
             } else {
-              this.tmm = forecast.qpf_allday.in + "in";
+              this.tmm = hourlyforecast.qpf.english + "in";
             }
             this.thour = hourlyforecast.FCTTIME.hour + ":00";
           }
