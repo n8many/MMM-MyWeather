@@ -28,11 +28,13 @@ module.exports = NodeHelper.create({
 
   fetchWeatherbits: function() {      
 		var self = this ;
-        var params = "?key=" + this.config.apikey;
+
         var wulang = this.config.lang.toLowerCase();
-        params += "&lang=" + wulang;
-        params += "&lat=" + this.config.lat;
+
+        var params = "?lat=" + this.config.lat;
         params += "&lon=" + this.config.lon ;
+		params += "&key=" + this.config.apikey;
+		params += "&lang=" + wulang;
         
         var Wurl = this.config.apiBase + "/current" + params;
 		var Wurlf = this.config.apiBase + "/forecast/daily" + params
@@ -47,6 +49,7 @@ module.exports = NodeHelper.create({
                     if (!error && response.statusCode == 200) {
                         self.wunderPayload.current = JSON.parse(body);
                         // console.log(moment().format() + " <5> " + self.name + ": " + body);
+						// console.log(Wurlf) ;
 						request({
 						url: Wurlf,
 						method: 'GET'
@@ -60,7 +63,9 @@ module.exports = NodeHelper.create({
 										}, function(e, r, b) {
 												if (!e && r.statusCode == 200) {
 												self.wunderPayload.hourly3 = JSON.parse(b) ;
-												console.log(moment().format() + " <5c> " + self.name + ": " + self.wunderPayload);
+												if (self.config.debug === 1) {
+													console.log(moment().format() + " <5c> " + self.name + ": " + self.wunderPayload);
+												}
 												self.sendSocketNotification('WEATHERBIT',self.wunderPayload);
 												} else {
 												console.log(moment().format() + " <6c> " + self.name + ": " + error);
@@ -88,7 +93,7 @@ module.exports = NodeHelper.create({
   
   //Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
-    console.log(notification);
+    // console.log(notification);
     
     var self = this;
     
@@ -99,7 +104,7 @@ module.exports = NodeHelper.create({
         // console.log(JSON.stringify(payload));
 
         if ( this.config.debug === 1 ) {
-			console.log('Lets get WunderGround');
+			console.log('Lets get WeatherBits');
 		}
 
         if (!this.fetcherRunning) {
