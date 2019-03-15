@@ -277,8 +277,8 @@ Module.register("MMM-MyWeather", {
           windDirectionIcon.innerHTML = this.windDirectionTxt;
         }
 		
-		Log.log("WIND: ") ;
-		Log.log(windDirectionIcon) ;
+//		Log.log("WIND: ") ;
+//		Log.log(windDirectionIcon) ;
 		
         row_sitrep.appendChild(windDirectionIcon);
 
@@ -987,7 +987,7 @@ Module.register("MMM-MyWeather", {
 		   "&p=" +
 		   (((latitude>=0 && moonDirection == waxing) || (latitude < 0 && moondirection == waning) )? "0" : "3.14") +
 		   "&r=0.833' >" ;
-	  Log.log("Moon: " + aspectofMoon + ((moonDirection == waxing)? " waxing " : " waning ") + latitude + " " +  this.moonPhaseIcon) ;
+//	  Log.log("Moon: " + aspectofMoon + ((moonDirection == waxing)? " waxing " : " waning ") + latitude + " " +  this.moonPhaseIcon) ;
  
       if (this.config.units == "metric") {
         this.temperature = data.current.data[0].temp ;
