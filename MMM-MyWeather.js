@@ -932,19 +932,28 @@ Module.register("MMM-MyWeather", {
 
       var now = new Date();
 
-      var sunrise = new Date();
-      this.sunrhour = Number(data.current.data[0].sunrise.substr(0,2));
-      sunrise.setHours(data.current.data[0].sunrise.substr(0,2));
-      sunrise.setMinutes(data.current.data[0].sunrise.substr(3,2));
-
-      var sunset = new Date();
-      this.sunshour = Number(data.current.data[0].sunset.substr(0,2));
-      sunset.setHours(data.current.data[0].sunset.substr(0,2));
-      sunset.setMinutes(data.current.data[0].sunset.substr(3,2));
+      var sunrise = new Date(data.daily.data[0].sunrise_ts * 1000);
+//      this.sunrhour = Number(data.current.data[0].sunrise.substr(0,2));
+//      sunrise.setHours(data.current.data[0].sunrise.substr(0,2));
+//      sunrise.setMinutes(data.current.data[0].sunrise.substr(3,2));
+//      sunrise = moment.utc(data.current.data[0].sunrise) ;
+	  
+      var sunset = new Date(data.daily.data[0].sunset_ts * 1000);
+//      this.sunshour = Number(data.current.data[0].sunset.substr(0,2));
+//      sunset.setHours(data.current.data[0].sunset.substr(0,2));
+//      sunset.setMinutes(data.current.data[0].sunset.substr(3,2));
+//      sunset = moment.utc(data.current.data[0].sunset) ;
 
       // The moment().format("h") method has a bug on the Raspberry Pi.
       // So we need to generate the timestring manually.
       // See issue: https://github.com/MichMich/MagicMirror/issues/181
+	  
+	  if (this.config.debug === 1 { 
+	  Log.log("Sunrise: "+ moment(sunrise).format() );
+	  Log.log("Sunset: "+ moment(sunset).format() );
+	  Log.log("Now: "+ moment(now).format() );
+	  Log.log("Inbetween = " + (sunrise < now && sunset > now)) ;
+	  }
 
       var sunriseSunsetDateObject = (sunrise < now && sunset > now) ? sunset : sunrise;
         
@@ -962,11 +971,10 @@ Module.register("MMM-MyWeather", {
         timeString = moment(sunriseSunsetDateObject).format("h:mm a");
       }
 
+	  
       this.sunriseSunsetTime = timeString;
       this.sunriseSunsetIcon = (sunrise < now && sunset > now) ? "wi-sunset" : "wi-sunrise";
       this.iconTable = (sunrise < now && sunset > now) ? this.config.iconTableDay : this.config.iconTableNight;
-
-	  var now = new Date();
 
 
       this.weatherType = this.iconTable[this.wbCode2Text(data.current.data[0].weather.code)];
