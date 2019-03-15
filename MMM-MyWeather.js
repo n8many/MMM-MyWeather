@@ -948,7 +948,7 @@ Module.register("MMM-MyWeather", {
       // So we need to generate the timestring manually.
       // See issue: https://github.com/MichMich/MagicMirror/issues/181
 	  
-	  if (this.config.debug === 1 { 
+	  if (this.config.debug === 1) { 
 	  Log.log("Sunrise: "+ moment(sunrise).format() );
 	  Log.log("Sunset: "+ moment(sunset).format() );
 	  Log.log("Now: "+ moment(now).format() );
