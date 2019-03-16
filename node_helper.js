@@ -10,19 +10,23 @@
 var NodeHelper = require('node_helper');
 var request = require('request');
 var moment = require('moment');
+var RSSParser = require('rss-parser') ;
 
 
 
 
 module.exports = NodeHelper.create({
   start: function () {
-    console.log('MMM-WunderGround helper started ...');
+    console.log('MMM-MyWeather helper started ...');
 	this.fetcherRunning = false;
+	this.country = null;
 	this.wunderPayload = {
 		current: null,
 		daily: null,
-		hourly3: null
+		hourly3: null,
+		alarm: null
 	};
+	this.parser = new RSSParser() ;
   },
 
 
@@ -66,17 +70,28 @@ module.exports = NodeHelper.create({
 												if (self.config.debug === 1) {
 													console.log(moment().format() + " <5c> " + self.name + ": " + self.wunderPayload);
 												}
-												self.sendSocketNotification('WEATHERBIT',self.wunderPayload);
+												if (self.config.alarmUrl != null) {
+													self.parser.parseURL(self.config.alarmUrl, function(errorp, feed) {
+														if (!errorp) {
+															self.wunderPayload.alarm = self.extractAlarminfo(feed) ;
+															self.sendSocketNotification('WEATHERBIT',self.wunderPayload);
+														} else {
+															console.log(moment().format() + " <6d> " + self.name + ": " + errorp);
+														}
+													});
 												} else {
-												console.log(moment().format() + " <6c> " + self.name + ": " + error);
+													self.sendSocketNotification('WEATHERBIT',self.wunderPayload);
+												} ;
+												} else {
+												console.log(moment().format() + " <6c> " + self.name + ": " + e);
 												}
 											});
 								} else {
-								console.log(moment().format() + " <6b> " + self.name + ": " + error);
+								console.log(moment().format() + " <6b> " + self.name + ": " + err);
 								}
 						});
                     } else {
-                        console.log(moment().format() + " <6> " + self.name + ": " + error);
+                        console.log(moment().format() + " <6a> " + self.name + ": " + error);
                     }
 				})			
 	},
@@ -111,8 +126,26 @@ module.exports = NodeHelper.create({
             this.startFetcher();
         } 
         
-    }			
-    
+    }
+  },
+  
+  extractAlarminfo: function (parsedxml) {
+	  var alarm = [] ;
+	  var wimages = RegExp('awt:([\\d]*)[\\s]*level:([\\d]*)','g');
+	  var content = parsedxml.items[0].content.replace(/Tomorrow[\s\S]*$/i, "") ;
+	  var result;
+	  while ((result = wimages.exec(content)) !== null) {
+		alarm.push( {type: result[1], level: result[2], title: parsedxml.items[0].title } )
+	  }
+	  
+	  if (this.config.debug === 1) {
+	  console.log("Content") ;
+	  console.log(parsedxml.items[0].content) ;
+	  console.log ("Alarm: ") ;
+	  console.log(alarm) ;
+	  }
+	  
+	  return alarm ;
   }
 
 });

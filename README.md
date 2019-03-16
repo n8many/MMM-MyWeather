@@ -211,17 +211,39 @@ The following properties can be configured:
 			</td>
 		</tr>
 		<tr>
-			<td><code>alerttime</code></td>
-			<td>The amount of time the alert is duisplayed. (Milliseconds)<br>
-				<br><b>Possible values:</b> <code>1000</code> - <code>60000</code>
-				<br><b>Default value:</b>  <code>10000</code>
+			<td><code>alarmUrl</code></td>
+			<td>the url of the metoalarm.eu RSS stream for your region(!) <br>
+				<br><b>Example values:</b> https://meteoalarm.eu/documents/rss/nl/NL019.rss </code>
+				<br><b>Default value:</b>  <code>null</code>
 			</td>
 		</tr>
 		<tr>
-			<td><code>alerttruncatestring</code></td>
-			<td>Truncates the aletr text at the defined word (Milliseconds)<br>
-				<br><b>Possible values:</b> <code>any string</code>
-				<br><b>Default value:</b>  <code></code>
+			<td><code>showAlarmText</code></td>
+			<td>show alert texts with the icons...<br>
+				<br><b>Possible values:</b> <code>1 or 0</code>
+				<br><b>Default value:</b>  <code>0</code>  (only Icons)
+			</td>
+		</tr>
+		<tr>
+			<td><code>iconAlarmArray</code></td>
+			<td>Array with the text (in your language) to be used with the alarm icons. The first item of the array is the general text. <br>
+				<br><b>Possible values:</b> <code>array of 14 strings</code>
+				<br><b>Default value:</b>  <code>[
+			"Weather Alarm(s)"</code>,
+			<code>"Wind"</code>,
+			<code>"Snow/Ice"</code>,
+			<code>"Thunderstorms"</code>,	
+			<code>"Fog"</code>,
+			<code>"Extreme high temperature"</code>,
+			<code>"Extreme low temperature"</code>,
+			<code>"Coastal Threat"</code>,
+			<code>"Forestfire"</code>,
+			<code>"Avalanches"</code>,
+			<code>"Rain"</code>,
+			<code>"Rain"</code>,
+			<code>"Flooding"</code>,
+			<code>"Rain & Flooding</code>"
+			]</code>
 			</td>
 		</tr>
 		<tr>

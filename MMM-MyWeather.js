@@ -62,7 +62,25 @@ Module.register("MMM-MyWeather", {
     retryDelay: 2500,
 
     apiBase: "http://api.weatherbit.io/v2.0",
- 
+	alarmUrl: null,
+	showAlarmText: 1,
+    iconAlarmArray: [
+			"Weather Alarm(s)",
+			"Wind",
+			"Snow/Ice",
+			"Thunderstorms",	
+			"Fog",
+			"Extreme high temperature",
+			"Extreme low temperature",
+			"Coastal Threat",
+			"Forestfire",
+			"Avalanches",
+			"Rain",
+			"Rain",
+			"Flooding",
+			"Rain & Flooding"
+			],
+	 
     iconTableDay: {
       "chanceflurries": "wi-day-snow-wind",
       "chancerain": "wi-day-showers",
@@ -561,8 +579,12 @@ Module.register("MMM-MyWeather", {
         if (this.config.fctext == 1) {
             // var row = document.createElement("tr");
             var forecastTextCell = document.createElement("div");
-
-            forecastTextCell.className = "forecastText";
+			
+			for (let icon of this.alarmIcons) {
+				this.forecastText += ("&nbsp &nbsp " + icon);
+			}
+				
+			forecastTextCell.className = "forecastText";
             // forecastTextCell.setAttribute("colSpan", "10");
             forecastTextCell.innerHTML = this.forecastText;
 
@@ -929,8 +951,13 @@ Module.register("MMM-MyWeather", {
 	  var moonDirection ;
 	  var aspectofMoon ;
 	  var latitude ;
+	  this.alarmLevel = 0 ;
 
       var now = new Date();
+	  
+//	  Log.log(data.current.data[0].country_code)
+	  
+	  this.sendSocketNotification("COUNTRY", data.current.data[0].country_code );
 
       var sunrise = new Date(data.daily.data[0].sunrise_ts * 1000);
 //      this.sunrhour = Number(data.current.data[0].sunrise.substr(0,2));
@@ -943,7 +970,6 @@ Module.register("MMM-MyWeather", {
 //      sunset.setHours(data.current.data[0].sunset.substr(0,2));
 //      sunset.setMinutes(data.current.data[0].sunset.substr(3,2));
 //      sunset = moment.utc(data.current.data[0].sunset) ;
-
       // The moment().format("h") method has a bug on the Raspberry Pi.
       // So we need to generate the timestring manually.
       // See issue: https://github.com/MichMich/MagicMirror/issues/181
@@ -998,28 +1024,40 @@ Module.register("MMM-MyWeather", {
  
       if (this.config.units == "metric") {
         this.temperature = data.current.data[0].temp ;
-        var fc_text = data.current.data[0].weather.description;
       } else {
         this.temperature = data.current.data[0].temp * 1.8 + 32 ;
-        var fc_text = data.current.data[0].weather.description;
       }
-
-      // Attempt to scale txt_forecast in case it results in too many lines
-      // var fc_text = data.forecast.txt_forecast.forecastday[0].fcttext_metric.replace(/(.*\d+)(C)(.*)/gi, "$1°C$3");
-      var fc_wrap = 35;
-      var fc_flines = 3;
-      var fc_scale = 100;
-      if (this.config.scaletxt == 1) {
-        var fc_lines = fc_text.length / fc_wrap;
-        if (fc_lines > fc_flines) {
-          fc_scale = Math.round((fc_flines / fc_lines) * 100);
-          fc_wrap = Math.round(fc_wrap * (100 / fc_scale));
-        }
-      }
-      // this.forecastText = '<div style="font-size:' + fc_scale + '%">';
-      // this.forecastText = this.forecastText + this.wordwrap(fc_text, fc_wrap, "<BR>");
-      this.forecastText = fc_text;
-      // console.log("Wrap: " + fc_wrap + " Scale: " + fc_scale + " Lines: " + fc_lines + " Length: " + fc_text.length);
+	  
+	  var fc_text = data.current.data[0].city_name + ", " + data.current.data[0].weather.description;
+	  
+	  this.alarmIcons = [] ;
+	  if (data.alarm != null) {
+		  var welement ;
+		  for (let w of data.alarm) {
+			  if (w.level >=2 ) {
+				welement = ' <img border="1" src="https://www.meteoalarm.eu/documents/rss/wflag-l' + w.level +
+				"-t" + w.type + '.jpg" >&nbsp ' ;
+				if (this.config.showAlarmText) {
+					welement += (this.config.iconAlarmArray[w.type] + "&nbsp &nbsp") ;
+				}
+				this.alarmIcons.push(welement) ;
+			  }
+		  }
+	  }
+	  
+	  this.forecastText = fc_text;
+	  
+	  if (this.alarmIcons.length != 0) { 
+			this.alarmIcons[0] = 
+				"<p>" + 
+				this.config.iconAlarmArray[0] + 
+				" " +
+				data.alarm[0].title + 
+				": &nbsp &nbsp" +
+				this.alarmIcons[0] ;
+	  }
+	  
+//	  Log.log(this.alarmIcons) ;
 
       this.temperature = this.roundValue(this.temperature);
       this.weatherTypeTxt = "<img src='./modules/MMM-MyWeather/img/" + this.config.iconset + "/" +
