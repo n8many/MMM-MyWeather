@@ -22,7 +22,7 @@ by github user martinkooij. The changed config variables are marked with a "*".
 ## Installing the module
 Clone this repository in your `~/MagicMirror/modules/` folder `( $ cd ~MagicMirror/modules/ )`:
 ````javascript
-git clone https://github.com/jclarke0000/MMM-MyWeather.git
+git clone https://github.com/martinkooij/MMM-MyWeather.git
 ````
 then goto to the module directory and execute in the module directory
 ````javascript
