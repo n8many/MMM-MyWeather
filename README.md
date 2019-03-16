@@ -84,7 +84,7 @@ The following properties can be configured:
 		</tr>
 		<tr>
 			<td><code>apikey</code></td>
-			<td>* The <a href="https://www.weatherbits.io">Weatherbits</a> API key, which can be obtained by creating an weatherbits account. 
+			<td>* The <a href="https://www.weatherbit.io">Weatherbit</a> API key, which can be obtained by creating an weatherbits account. 
 			</td>
 		</tr>
 		<tr>
