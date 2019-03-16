@@ -24,6 +24,11 @@ Clone this repository in your `~/MagicMirror/modules/` folder `( $ cd ~MagicMirr
 ````javascript
 git clone https://github.com/jclarke0000/MMM-MyWeather.git
 ````
+then goto to the module directory and execute in the module directory
+````javascript
+npm install
+````
+to install the dependencies
 
 ## Using the module
 
