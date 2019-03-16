@@ -1,4 +1,4 @@
-# Module: Weather Underground Forecast
+# Module: Weather Forecast
 
 This is a module for MagicMirror, forked from RedNax67's MMM-WunderGround
 https://github.com/RedNax67/MMM-WunderGround.git
