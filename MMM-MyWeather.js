@@ -372,10 +372,13 @@ Module.register("MMM-MyWeather", {
 
         if (this.config.fctext == 1) {
           var forecastTextCell = document.createElement("td");
-          // forecastTextCell.className = "forecastText";
+		  
+		  this.forecastText += this.alarmIcons.join(" &nbsp; &nbsp; ") ;
+				
+		  forecastTextCell.className = "forecastText";
           forecastTextCell.setAttribute("colSpan", "10");
           forecastTextCell.innerHTML = this.forecastText;
-
+		  
           row.appendChild(forecastTextCell);
         }
 
@@ -580,9 +583,7 @@ Module.register("MMM-MyWeather", {
             // var row = document.createElement("tr");
             var forecastTextCell = document.createElement("div");
 			
-			for (let icon of this.alarmIcons) {
-				this.forecastText += ("&nbsp &nbsp " + icon);
-			}
+		    this.forecastText += this.alarmIcons.join(" &nbsp; &nbsp; ") ;
 				
 			forecastTextCell.className = "forecastText";
             // forecastTextCell.setAttribute("colSpan", "10");
@@ -1042,9 +1043,9 @@ Module.register("MMM-MyWeather", {
 		  for (let w of data.alarm) {
 			  if (w.level >=2 ) {
 				welement = ' <img border="1" src="https://www.meteoalarm.eu/documents/rss/wflag-l' + w.level +
-				"-t" + w.type + '.jpg" >&nbsp ' ;
+				"-t" + w.type + '.jpg" >' ;
 				if (this.config.showAlarmText) {
-					welement += (this.config.iconAlarmArray[w.type] + "&nbsp &nbsp") ;
+					welement += ("&nbsp;" + this.config.iconAlarmArray[w.type]) ;
 				}
 				this.alarmIcons.push(welement) ;
 			  }
@@ -1055,11 +1056,11 @@ Module.register("MMM-MyWeather", {
 	  
 	  if (this.alarmIcons.length != 0) { 
 			this.alarmIcons[0] = 
-				"<p>" + 
+				"<br />" + 
 				this.config.iconAlarmArray[0] + 
 				" " +
 				data.alarm[0].title + 
-				": &nbsp &nbsp" +
+				": &nbsp; " +
 				this.alarmIcons[0] ;
 	  }
 	  
