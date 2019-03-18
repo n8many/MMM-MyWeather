@@ -40,8 +40,8 @@ modules: [
     position: 'top_right',
     config: {
       apikey: 'xxxxxxxxxxxxx', // private; don't share!
-      lat: "51.95" // Culemborg, NL ;)
-	  lon: "5.23"  // use the quotes for string! 
+      lat: "51.95", // Culemborg, NL ;)
+      lon: "5.23" , // use the quotes! 
       hourly: '1',
       fctext: '1',
       fcdaycount: "5",
@@ -52,8 +52,7 @@ modules: [
       alerttruncatestring: "english:",
       roundTmpDecs: 1,
       UseCardinals: 0,
-      layout: "horizontal",
-      sysstat: 0
+      layout: "horizontal"
     }
   },
 ]
