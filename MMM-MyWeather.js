@@ -1028,7 +1028,13 @@ Module.register("MMM-MyWeather", {
         this.temperature = data.current.data[0].temp * 1.8 + 32 ;
       }
 	  
-	  var fc_text = data.current.data[0].city_name + ", " + data.current.data[0].weather.description;
+	  var fc_text = 
+		data.current.data[0].city_name + ". " +
+		this.translate("TODAY") + ": " + 
+		data.daily.data[0].weather.description + ", "+
+		this.translate("TOMORROW").toLowerCase() + ": " +
+		data.daily.data[1].weather.description + "." ;
+	  
 	  
 	  this.alarmIcons = [] ;
 	  if (data.alarm != null) {
