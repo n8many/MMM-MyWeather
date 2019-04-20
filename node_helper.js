@@ -23,7 +23,7 @@ module.exports = NodeHelper.create({
 	this.wunderPayload = {
 		current: null,
 		daily: null,
-		hourly3: null,
+		hourly: null,
 		alarm: null
 	};
 	this.parser = new RSSParser() ;
@@ -42,7 +42,7 @@ module.exports = NodeHelper.create({
         
         var Wurl = this.config.apiBase + "/current" + params;
 		var Wurlf = this.config.apiBase + "/forecast/daily" + params
-		var Wurlf3 = this.config.apiBase + "/forecast/3hourly" + params ;
+		var Wurlf3 = this.config.apiBase + "/forecast/hourly" + params ;
 		if ( this.config.debug === 1 ) {
 			console.log(moment().format() + " 4 " + this.name  + ": " + Wurl);
 		}
@@ -66,7 +66,7 @@ module.exports = NodeHelper.create({
 									method: 'GET'
 										}, function(e, r, b) {
 												if (!e && r.statusCode == 200) {
-												self.wunderPayload.hourly3 = JSON.parse(b) ;
+												self.wunderPayload.hourly = JSON.parse(b) ;
 												if (self.config.debug === 1) {
 													console.log(moment().format() + " <5c> " + self.name + ": " + self.wunderPayload);
 												}

@@ -1127,9 +1127,9 @@ Module.register("MMM-MyWeather", {
 
       if (this.config.hourly == 1) {
         this.hourlyforecast = [];
-        for (i = 0 ; i < data.hourly3.data.length - 1 ; i++) {  
+        for (i = 0 ; i < data.hourly.data.length ; i += 3) {  
 
-          var hourlyforecast = data.hourly3.data[i];
+          var hourlyforecast = data.hourly.data[i];
 
           if (this.config.units == "metric") {
             this.tmaxTemp = hourlyforecast.temp;
