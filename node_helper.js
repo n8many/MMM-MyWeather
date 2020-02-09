@@ -30,7 +30,10 @@ module.exports = NodeHelper.create({
   },
 
 
-  fetchWeatherbits: function() {      
+  fetchWeatherbits: function() {   
+	  if(this.config.debug === 1){
+		  console.log("Fetch weatherbits");
+	  }   
 		var self = this ;
 
         var wulang = this.config.lang.toLowerCase();
@@ -40,60 +43,76 @@ module.exports = NodeHelper.create({
 		params += "&key=" + this.config.apikey;
 		params += "&lang=" + wulang;
         
-        var Wurl = this.config.apiBase + "/current" + params;
-		var Wurlf = this.config.apiBase + "/forecast/daily" + params
-		var Wurlf3 = this.config.apiBase + "/forecast/hourly" + params ;
-		if ( this.config.debug === 1 ) {
-			console.log(moment().format() + " 4 " + this.name  + ": " + Wurl);
+		var reqError = false;
+
+		// Current weather 
+		request({
+			url: this.config.apiBase + "/current" + params,
+			method: 'GET'
+				}, function(error, response, body){
+					if(!error && response.statusCode == 200 ){
+						self.wunderPayload.current = JSON.parse(body);
+					}
+					else{
+						console.log(moment().format() + " <6a> " + self.name + ": " + error);
+						reqError = true;
+					}
+				}
+		);		
+		
+		// Daily forcast. Always required for moon and sunrise
+		if(!reqError){
+			request({
+				url: this.config.apiBase + "/forecast/daily" + params,
+				method: 'GET'
+					}, function(error, response, body){
+						if(!error && response.statusCode == 200 ){
+							self.wunderPayload.daily = JSON.parse(body);
+						}
+						else{
+							console.log(moment().format() + " <6b> " + self.name + ": " + err);
+							reqError = true;
+						}
+					}
+			);
 		}
-        request({
-            url: Wurl,
-            method: 'GET'
-                }, function(error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        self.wunderPayload.current = JSON.parse(body);
-                        // console.log(moment().format() + " <5> " + self.name + ": " + body);
-						// console.log(Wurlf) ;
-						request({
-						url: Wurlf,
-						method: 'GET'
-						}, function(err, res, bd) {
-							if (!err && res.statusCode == 200) {
-								self.wunderPayload.daily = JSON.parse(bd);
-								// console.log(moment().format() + " <5b> " + self.name + ": " + bd);
-								request({
-									url: Wurlf3,
-									method: 'GET'
-										}, function(e, r, b) {
-												if (!e && r.statusCode == 200) {
-												self.wunderPayload.hourly = JSON.parse(b) ;
-												if (self.config.debug === 1) {
-													console.log(moment().format() + " <5c> " + self.name + ": " + self.wunderPayload);
-												}
-												if (self.config.alarmUrl != null) {
-													self.parser.parseURL(self.config.alarmUrl, function(errorp, feed) {
-														if (!errorp) {
-															self.wunderPayload.alarm = self.extractAlarminfo(feed) ;
-															self.sendSocketNotification('WEATHERBIT',self.wunderPayload);
-														} else {
-															console.log(moment().format() + " <6d> " + self.name + ": " + errorp);
-														}
-													});
-												} else {
-													self.sendSocketNotification('WEATHERBIT',self.wunderPayload);
-												} ;
-												} else {
-												console.log(moment().format() + " <6c> " + self.name + ": " + e);
-												}
-											});
-								} else {
-								console.log(moment().format() + " <6b> " + self.name + ": " + err);
-								}
-						});
-                    } else {
-                        console.log(moment().format() + " <6a> " + self.name + ": " + error);
-                    }
-				})			
+
+		// Hourly forcaset. Check config to see if needed.
+		if(!reqError && config.hourly === 1){
+			request({
+				url: this.config.apiBase + "/forecast/hourly" + params,
+				method: 'GET'
+					}, function(error, response, body){
+						if(!error && response.statusCode == 200 ){
+							self.wunderPayload.hourly = JSON.parse(body);
+						}
+						else{
+							console.log(moment().format() + " <6c> " + self.name + ": " + e);
+							reqError = true;
+						}
+					}
+			);
+		}
+
+		// Alarm 
+		if (!reqError && self.config.alarmUrl != null) {
+			self.parser.parseURL(self.config.alarmUrl, 
+				function(error, feed) {
+					if (!error) {
+						self.wunderPayload.alarm = self.extractAlarminfo(feed) ;
+					} else {
+						console.log(moment().format() + " <6d> " + self.name + ": " + error);
+						reqError = true;
+					}
+				}
+			);
+		}
+		if(!reqError){
+			if(this.config.debug === 1){
+				console.log(moment().format() + ' WEATHER PAYLOAD ' + self.wunderPayload);
+			}
+			self.sendSocketNotification('WEATHERBIT',self.wunderPayload);
+		}		
 	},
 					
     startFetcher: function () {
@@ -124,7 +143,10 @@ module.exports = NodeHelper.create({
 
         if (!this.fetcherRunning) {
             this.startFetcher();
-        } 
+		}
+		else{
+			this.fetchWeatherbits() ; // One off fetch for a new connection
+		} 
         
     }
   },

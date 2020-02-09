@@ -42,12 +42,9 @@ modules: [
       apikey: 'xxxxxxxxxxxxx', // private; don't share!
       lat: "51.95", // Culemborg, NL ;)
       lon: "5.23" , // use the quotes! 
-      hourly: '1',
       fctext: '1',
       fcdaycount: "5",
       fcdaystart: "0",
-      hourlyinterval: "3",
-      hourlycount: "2",
       alerttime: 10000,
       alerttruncatestring: "english:",
       roundTmpDecs: 1,
@@ -144,8 +141,9 @@ The following properties can be configured:
 			<td><code>hourly</code></td>
 			<td>Display hourly forecasts. Specified by config.js<br>
 				<br><b>Possible values:</b> <code>0</code> - <code>1</code>
-				<br><b>Default value:</b> <code>1</code> (Will display hourly forecasts)
-				<br>This value is optional. By default the hourly forecast will be displayed.
+				<br><b>Default value:</b> <code>0</code> (Won't display hourly forcases)
+				<br>This value is optional. By default the hourly forecast will not be displayed.
+				<br>* Note that hourly forcasts are no longer available in the free weatherbits plan.</br>
 			</td>
 		</tr>
 		<tr>

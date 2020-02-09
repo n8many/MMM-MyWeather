@@ -431,7 +431,7 @@ Module.register("MMM-MyWeather", {
             // forecast = this.hourlyforecast[f * this.config.hourlyinterval];
 
           var counter = 0;
-		  for (var i = 0; i < this.hourlyforecast.length; i++) {
+		      for (var i = 0; i < this.hourlyforecast.length; i++) {
             forecast = this.hourlyforecast[i];
 
             row = document.createElement("tr");
