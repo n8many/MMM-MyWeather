@@ -216,6 +216,7 @@ Module.register("MMM-MyWeather", {
     this.getWeatherbit();
     this.updateTimer = null;
     this.haveforecast = 0;
+    this.condense = 0;
   },
 
   getWeatherbit: function() {
@@ -349,7 +350,8 @@ Module.register("MMM-MyWeather", {
     }
 
     // Forecast table
-    if (this.config.forecasttable === 1) {
+    if (this.config.forecasttable === 1 &&
+            this.condense === 0) {
 
       var header = document.createElement("header");
       header.classList.add("module-header");
@@ -382,7 +384,8 @@ Module.register("MMM-MyWeather", {
           row.appendChild(forecastTextCell);
         }
 
-        if (this.config.forecasttablecolumnheadericons === 1) {
+        if (this.config.forecasttablecolumnheadericons === 1 &&
+                this.condense === 0) {
           row = document.createElement("tr");
 
           var dayHeader = document.createElement("th");
@@ -426,7 +429,8 @@ Module.register("MMM-MyWeather", {
           table.appendChild(row);
         }
 
-        if (this.config.hourly == 1) {
+        if (this.config.hourly == 1 && 
+                this.condense === 0) {
           // for (f in this.forecast) {
             // forecast = this.hourlyforecast[f * this.config.hourlyinterval];
 
@@ -509,7 +513,8 @@ Module.register("MMM-MyWeather", {
         }
 
 
-        if (this.config.daily == 1) {
+        if (this.config.daily == 1 &&
+                this.condense === 0) {
     	    for (f in this.forecast) {
     				forecast = this.forecast[f];
 
@@ -600,7 +605,8 @@ Module.register("MMM-MyWeather", {
         // table.setAttribute("width", "25%");
         table.classList.add("horizontal");
 
-        if (this.config.sysstat == 1) {
+        if (this.config.sysstat == 1 &&
+                this.condense === 0) {
 
           row_mem = document.createElement("tr");
           row_storage = document.createElement("tr");
@@ -688,7 +694,8 @@ Module.register("MMM-MyWeather", {
 
         }
 
-        if (this.config.hourly == 1) {
+        if (this.config.hourly == 1 &&
+                this.condense === 0) {
 
           row_time = document.createElement("tr");
           row_icon = document.createElement("tr");
@@ -823,7 +830,8 @@ Module.register("MMM-MyWeather", {
         row_wind = document.createElement("tr");
 
 
-    		if (this.config.daily == 1) {
+    		if (this.config.daily == 1 && 
+                    this.condense === 0) {
 
           counter = 0;
 
@@ -1288,6 +1296,20 @@ Module.register("MMM-MyWeather", {
     return parseFloat(temperature).toFixed(this.config.roundTmpDecs);
   },
 
+  notificationReceived: function(notification, payload, sender) {
+    var self = this;
+    if (notification === 'DISPLAY_FORECAST') {
+        if (payload == 0) {
+            this.condense = 1;
+        }
+        else {
+            this.condense = 0;
+        }
+        Log.log('received DISPLAY_FORECAST:' + payload);
+        this.updateDom(this.config.animationspeed);
+    }
+  },
+
   socketNotificationReceived: function(notification, payload) {
     var self = this;
 
@@ -1304,7 +1326,7 @@ Module.register("MMM-MyWeather", {
     }
 
   },
-  
+
   wbCode2Text: function(c) {
 	  var ch = c.toString() ;
 	  if (ch.substr(0,2) == "80") {

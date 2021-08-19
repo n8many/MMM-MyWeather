@@ -1,5 +1,4 @@
 {
-  /* GENERAL */
   "APIKEY": "Please set the correct openweather <i>appid</i> in the config for module: ",
   
 	"HUR": 	"Hurricane Local Statement",
